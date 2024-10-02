@@ -14,12 +14,7 @@ You can run it from its folder.
 
 ## Installation on Linux
 
-Head over to releases and download the latest NiraiSprite.AppImage.  
-Make sure it's executable with
-```bash
-chmod +x NiraiSprite.AppImage
-```
-and then you can run the file.
+There are no releases for Linux at the moment, so either download the Windows release and run it with WINE, or try building it yourself. I promise it's easy.
 
 # Building
 
@@ -29,9 +24,16 @@ Before you try building NiraiSprite all by yourself, make sure you have the corr
 These are:  
 
 [SDL2](https://github.com/libsdl-org/SDL/releases) version >= 2.23 NOT 3.x  
+When in doubt, follow their wiki.  
+  
 [git](https://github.com/)  
+If you don't know how to use git, what are you doing here?  
+  
 [make](https://www.gnu.org/software/make/) or [Make for Windows](https://gnuwin32.sourceforge.net/packages/make.htm) on Windows  
-[tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/files/)
+All that matters is that you install make somehow.  
+  
+[tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/files/)  
+Tiny File Dialogs is already a submodule, so don't fret too much about this one.
 
 ## Directory Preparation
 
