@@ -27,7 +27,8 @@ GCC or the GNU Compiler Collection.
 If you're using GNU/Linux, you can install this with your distro's package manager, if it's not already installed.  
 If you're on Windows, please use [MinGW](https://www.mingw-w64.org/downloads/).  
   
-[SDL2](https://www.libsdl.org/) version >= 2.23 NOT 3.x  
+[SDL2](https://www.libsdl.org/) version greater than or equal to 2.23.0 but less than or equal to 2.30.7, unless you know what you're doing.  
+SDL2 version 2.30.8 has bugs with displaying the cursor icons.  
 If you're on Linux, you can use your package manager to install the libraries and runtime binaries for this.  
 When in doubt, follow their [wiki](https://wiki.libsdl.org/SDL2/FrontPage).  
   
@@ -66,7 +67,7 @@ If all dependencies were installed correctly, then it should work.
 This guide uses the PowerShell command line.  
 If you don't know how to do that, just download the release.
 
-Firstly, download the latest [SDL2](https://github.com/libsdl-org/SDL/releases) release for your compiler. This should look something like "SDL2-devel-2.x.x-mingw.zip".  
+Firstly, download an [SDL2](https://github.com/libsdl-org/SDL/releases) release (correct versions are specified in [Prerequisites](##Prerequisites)) for your compiler. This should look something like "SDL2-devel-2.x.x-mingw.zip".  
 Extract the archive somewhere so that you can access the files inside.  
   
 Inside the folder, there are two folders to choose from, and you only need one of them.  
