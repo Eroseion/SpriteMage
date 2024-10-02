@@ -85,4 +85,4 @@ If you have not added [Make For Windows](https://gnuwin32.sourceforge.net/packag
 make -f Makefile.win32
 ```
 Then you can run the executable.  
-Congrats, You just build NiraiSprite. Enjoy!
+Congrats, You just built NiraiSprite. Enjoy!
