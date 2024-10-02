@@ -1,0 +1,3 @@
+[submodule "depends/tinyfd"]
+	path = depends/tinyfd
+	url = http://git.code.sf.net/p/tinyfiledialogs/code

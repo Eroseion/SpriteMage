@@ -31,7 +31,7 @@ These are:
 [SDL2](https://github.com/libsdl-org/SDL/releases) version >= 2.23 NOT 3.x  
 [git](https://github.com/)  
 [make](https://www.gnu.org/software/make/) or [Make for Windows](https://gnuwin32.sourceforge.net/packages/make.htm) on Windows  
-[tinyfiledialogs](https://github.com/native-toolkit/libtinyfiledialogs)
+[tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/files/)
 
 ## Directory Preparation
 
