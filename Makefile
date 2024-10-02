@@ -7,6 +7,7 @@ CXX = g++
 BITS = 64
 
 NiraiSprite: main.cc NiraiLoader.h Makefile
+	cp depends/tinyfd/tinyfiledialogs* .
 	${CXX} -x c++ -c ${SRCS} -I${INCLUDEDIR} -m${BITS} -no-pie -Os
 	${CXX} *.o -L${LIBDIR} -static-libgcc -static-libstdc++ -Wl,-Bdynamic ${LINKING} -o ${NAME}
 
