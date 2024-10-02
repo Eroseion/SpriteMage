@@ -67,7 +67,7 @@ If all dependencies were installed correctly, then it should work.
 This guide uses the PowerShell command line.  
 If you don't know how to do that, just download the release.
 
-Firstly, download an [SDL2](https://github.com/libsdl-org/SDL/releases) release (correct versions are specified in [Prerequisites](##Prerequisites)) for your compiler. This should look something like "SDL2-devel-2.x.x-mingw.zip".  
+Firstly, download an [SDL2](https://github.com/libsdl-org/SDL/releases) release (correct versions are specified in [Prerequisites](#Prerequisites)) for your compiler. This should look something like "SDL2-devel-2.x.x-mingw.zip".  
 Extract the archive somewhere so that you can access the files inside.  
   
 Inside the folder, there are two folders to choose from, and you only need one of them.  
