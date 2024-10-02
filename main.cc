@@ -1,4 +1,5 @@
 # include "brush.h"
+#include<cstring>
 
 #ifdef __APPLE__
 #define LMOD SDLK_LGUI
@@ -41,6 +42,8 @@ Button* PointIsOnThisButton(int x, int y, Button* button){
 
 int main(int argc, char** argv) {
 
+printf("Entered Main Method\n");
+
 #ifdef _WIN32
 
 std::string cursor_plt = "cursor.plt";
@@ -50,7 +53,7 @@ std::string fill_nir = "fill.nir";
 std::string pen_nir = "pen.nir";
 std::string sidebar_nir = "sidebar.nir";
 std::string spray_nir = "spray.nir";
-
+/*
 #elif __linux__
 
 std::string cursor_plt = getenv("APPDIR"); cursor_plt += "/cursor.plt";
@@ -60,7 +63,7 @@ std::string fill_nir = getenv("APPDIR"); fill_nir += "/fill.nir";
 std::string pen_nir = getenv("APPDIR"); pen_nir += "/pen.nir";
 std::string sidebar_nir = getenv("APPDIR"); sidebar_nir += "/sidebar.nir";
 std::string spray_nir = getenv("APPDIR"); spray_nir += "/spray.nir";
-
+*/
 #endif
 
 _start:
@@ -81,7 +84,7 @@ std::vector<uint16_t> data;
 			image.bytes.push_back(0);
 		}
 		printf("\nNo palette specified. Using default palette.\n\n");
-		palette = nl::LoadPalette(default_plt);
+		palette = nl::LoadPalette("default.plt");
 		if (palette.size <= 1) { printf("Exiting.\n"); return 0; }
 	}
 	else if (argv[1] != NULL && argv[2] == NULL) {
@@ -96,7 +99,7 @@ std::vector<uint16_t> data;
 			}
 		}
 		printf("\nNo palette specified. Using default palette.\n\n");
-		palette = nl::LoadPalette(default_plt);
+		palette = nl::LoadPalette("default.plt");
 		if (palette.size <= 1) { printf("Exiting.\n"); return 0; }
 	}
 	else {
@@ -189,7 +192,7 @@ std::vector<uint16_t> data;
 	SDL_Texture* paletteTex = SDL_CreateTexture(paletteRenderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, palette.size > 16 ? 16 : palette.size - 1, palette.size > 16 ? 16 : 1);
 	SDL_UpdateTexture(paletteTex, NULL, &palette.color[1], (palette.size - 1) * 2);
 
-	SDL_Texture* pEditTex = nl::CreateSDLTextureFromFiles(paletteRenderer, pen_nir, cursor_plt);
+	SDL_Texture* pEditTex = nl::CreateSDLTextureFromFiles(paletteRenderer, "pen.nir", "cursor.plt");
 
 	SDL_Rect pEditRect;
 	pEditRect.x = 240;
@@ -206,20 +209,20 @@ std::vector<uint16_t> data;
 
 	short clickedColor = 1;
 
-	SDL_Surface* eraseSurf = nl::CreateSDLSurfaceFromFiles(renderer, erase_nir, cursor_plt);
+	SDL_Surface* eraseSurf = nl::CreateSDLSurfaceFromFiles(renderer, "erase.nir", "cursor.plt");
 	SDL_Cursor* eraseCur = SDL_CreateColorCursor(eraseSurf, 6, 13);
-	SDL_Surface* penSurf = nl::CreateSDLSurfaceFromFiles(renderer, pen_nir, cursor_plt);
+	SDL_Surface* penSurf = nl::CreateSDLSurfaceFromFiles(renderer, "pen.nir", "cursor.plt");
 	SDL_Cursor* penCur = SDL_CreateColorCursor(penSurf, 0, 15);
-	SDL_Surface* fillSurf = nl::CreateSDLSurfaceFromFiles(renderer, fill_nir, cursor_plt);
+	SDL_Surface* fillSurf = nl::CreateSDLSurfaceFromFiles(renderer, "fill.nir", "cursor.plt");
 	SDL_Cursor* fillCur = SDL_CreateColorCursor(fillSurf, 2, 14);
-	SDL_Surface* spraySurf = nl::CreateSDLSurfaceFromFiles(renderer, spray_nir, cursor_plt);
+	SDL_Surface* spraySurf = nl::CreateSDLSurfaceFromFiles(renderer, "spray.nir", "cursor.plt");
 	SDL_Cursor* sprayCur = SDL_CreateColorCursor(spraySurf, 0, 3);
 
 	SDL_Cursor* curCur = penCur;
 
 	bool curIsDefault = 0;
 
-	SDL_Texture* sidebarTex = nl::CreateSDLTextureFromFiles(renderer, sidebar_nir, default_plt);
+	SDL_Texture* sidebarTex = nl::CreateSDLTextureFromFiles(renderer, "sidebar.nir", "default.plt");
 
 	uint8_t optionSize = 80;
 
@@ -346,6 +349,8 @@ std::vector<uint16_t> data;
 	}
 	currentWidth = renderLogicalWidth;
 	currentHeight = renderLogicalHeight;
+
+	printf("Entering Program Loop\n");
 
 	while (running) {
 
