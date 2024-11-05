@@ -3,8 +3,10 @@
 NiraiSprite is a program to draw sprites for retro-style games.  
 The specification is inspired by the SNES, with support for 15 ARGB1555 colors + 1 transparent color per palette.  
   
-256 color mode to be added soon.
-
+256 color mode to be added soon.  
+  
+NiraiSprite was stored on my Google Drive until their terms of service threatened my intellectual property.  
+  
 # Installation
 
 ## Installation on Windows
