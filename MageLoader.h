@@ -1,5 +1,5 @@
-#ifndef NIRAILOADER_H
-#define NIRAILOADER_H
+#ifndef MAGELOADER_H
+#define MAGELOADER_H
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -21,7 +21,7 @@
 #define ret return;
 #define jmp goto
 
-namespace nl{
+namespace ml{
 
 	struct Palette {
 
@@ -296,4 +296,4 @@ namespace nl{
 	}
 }
 
-#endif // NIRAILOADER_H
+#endif // MAGELOADER_H
