@@ -175,14 +175,14 @@ std::vector<uint16_t> data;
 	uint16_t winH = image.heightInPixels>320?image.heightInPixels+image.heightInPixels:480;
 	int winX, winY;
 
-	SDL_Window* window = SDL_CreateWindow("NiraiSprite", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winW, winH, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
+	SDL_Window* window = SDL_CreateWindow("SpriteMage", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winW, winH, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 	SDL_RenderSetLogicalSize(renderer, renderLogicalWidth, renderLogicalHeight);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 
 	SDL_GetWindowPosition(window, &winX, &winY);
 
-	SDL_Window* paletteWindow = SDL_CreateWindow("NiraiSprite palette", winX + 640, winY, 256, 256, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_SKIP_TASKBAR | SDL_WINDOW_ALWAYS_ON_TOP);
+	SDL_Window* paletteWindow = SDL_CreateWindow("SpriteMage palette", winX + 640, winY, 256, 256, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_SKIP_TASKBAR | SDL_WINDOW_ALWAYS_ON_TOP);
 	SDL_Renderer* paletteRenderer = SDL_CreateRenderer(paletteWindow, -1, 0);
 	SDL_RenderSetLogicalSize(paletteRenderer, 16, 16);
 	SDL_SetRenderDrawColor(paletteRenderer, 0, 0, 0, 0xFF);
@@ -332,7 +332,7 @@ std::vector<uint16_t> data;
 
 	char * filename;
 
-	const char* helpMessage = "Ctrl + Right = next color\n\nCtrl + Left = previous color\n\nLeft click = select color at cursor\n\nP = pen tool\n\nE = eraser\n\nF = fill tool\n\nW = weight/pixel perfect mode\n\nCtrl + P = edit palette\n\nCtrl + Z = undo\n\n Ctrl + S = save\n\nCtrl + B save as Windows .bmp bitmap\n\n Ctrl + N = new image (will erase unsaved progress)\n\nCtrl + O = open NiraiSprite image file (will erase unsaved progress)\n\nCtrl + Up = increase pen size\n\n Ctrl + Down = decrease pen size";
+	const char* helpMessage = "Ctrl + Right = next color\n\nCtrl + Left = previous color\n\nLeft click = select color at cursor\n\nP = pen tool\n\nE = eraser\n\nF = fill tool\n\nW = weight/pixel perfect mode\n\nCtrl + P = edit palette\n\nCtrl + Z = undo\n\n Ctrl + S = save\n\nCtrl + B save as Windows .bmp bitmap\n\n Ctrl + N = new image (will erase unsaved progress)\n\nCtrl + O = open SpriteMage image file (will erase unsaved progress)\n\nCtrl + Up = increase pen size\n\n Ctrl + Down = decrease pen size";
 
 	if(rect.w > rect.h){
 		renderLogicalHeight = (renderLogicalWidth / 4) * 3;
@@ -363,7 +363,7 @@ std::vector<uint16_t> data;
 						if(quit == 2)
 							running = 0;
 						else if (quit == 1) {
-							SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "NiraiSprite image files"));
+							SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "SpriteMage image files"));
 							running = 0;
 						}
 					}else if(event.window.windowID == SDL_GetWindowID(paletteWindow)){
@@ -449,7 +449,7 @@ std::vector<uint16_t> data;
 				break;
 				case SDLK_o:
 					if(ctrl){
-						filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "NiraiSprite image files", 0);
+						filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "SpriteMage image files", 0);
 						if(filename) image = ml::LoadImage(filename);
 						rect.x = image.widthInPixels/3;
 						rect.y = 0;
@@ -529,7 +529,7 @@ std::vector<uint16_t> data;
 					}
 					break;
 				case SDLK_s:
-					if(ctrl) SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "NiraiSprite image files"));
+					if(ctrl) SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "SpriteMage image files"));
 					else{
 						brush.type = 2;
 						brush.cursor.w = brush.size;
@@ -867,10 +867,10 @@ std::vector<uint16_t> data;
 										}
 									}
 									else if(button == &saveButton){
-										SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "NiraiSprite image files"));
+										SaveImage(image, tinyfd_saveFileDialog("Save Image", NULL, 1, saveFilterPatterns, "SpriteMage image files"));
 									}
 									else if(button == &openButton){
-										filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "NiraiSprite image files", 0);
+										filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "SpriteMage image files", 0);
 										if(filename) image = ml::LoadImage(filename);
 										rect.x = image.widthInPixels/3;
 										rect.y = 0;
@@ -1349,7 +1349,7 @@ ml::Palette	EditPalette(ml::Palette palette) {
 	const char* paletteFilterPatterns[1] = { "*.plt" };
 	const char* hexFilterPatterns[1] = { "*.hex" };
 
-	const char* helpMessage = "Right/Left = switch selected R/G/B channel\n\nUp/Down = change R/G/B value\n\nCtrl+Right/Ctrl+Left = switch selected color index\n\nSpace = write color to palette index\n\nTab = copy selected color to editor\n\nBackspace/Del = delete color\n\nEnter = Finish and save palette\n\nCtrl + O = open NiraiSprite palette file (will discard current palette)\n\nCtrl + Shift + H = Open .hex palette\n\nCtrl + R = Randomize colors\n\nNiraiSprite WILL ONLY USE THE FIRST 15 COLORS OF HEX PALETTE.\nColor depth may suffer from conversion from 24- to 16-bit.";
+	const char* helpMessage = "Right/Left = switch selected R/G/B channel\n\nUp/Down = change R/G/B value\n\nCtrl+Right/Ctrl+Left = switch selected color index\n\nSpace = write color to palette index\n\nTab = copy selected color to editor\n\nBackspace/Del = delete color\n\nEnter = Finish and save palette\n\nCtrl + O = open SpriteMage palette file (will discard current palette)\n\nCtrl + Shift + H = Open .hex palette\n\nCtrl + R = Randomize colors\n\nSpriteMage WILL ONLY USE THE FIRST 15 COLORS OF HEX PALETTE.\nColor depth may suffer from conversion from 24- to 16-bit.";
 
 	while (running) {
 
@@ -1593,7 +1593,7 @@ ml::Palette	EditPalette(ml::Palette palette) {
 				break;
 				case SDLK_o:
 					if(ctrl){
-						filename = tinyfd_openFileDialog("Open Palette File", "", 1, paletteFilterPatterns, "NiraiSprite palette files", 0);
+						filename = tinyfd_openFileDialog("Open Palette File", "", 1, paletteFilterPatterns, "SpriteMage palette files", 0);
 						if(filename){
 							palette = ml::LoadPalette(filename);
 							if(palette.size){
@@ -1655,7 +1655,7 @@ ml::Palette	EditPalette(ml::Palette palette) {
 	printf("Quit PaletteMage\n isNew = %i\n",isNew);
 
 	if(!isNew)
-		SavePalette(palette, tinyfd_saveFileDialog("Save Palette", NULL, 1, paletteFilterPatterns, "NiraiSprite Palette Files"));
+		SavePalette(palette, tinyfd_saveFileDialog("Save Palette", NULL, 1, paletteFilterPatterns, "SpriteMage Palette Files"));
 
 	ml::Palette foo;
 
