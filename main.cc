@@ -48,21 +48,21 @@ printf("Entered Main Method\n");
 
 std::string cursor_plt = "cursor.plt";
 std::string default_plt = "default.plt";
-std::string erase_nir = "erase.nir";
-std::string fill_nir = "fill.nir";
-std::string pen_nir = "pen.nir";
-std::string sidebar_nir = "sidebar.nir";
-std::string spray_nir = "spray.nir";
+std::string erase_nir = "erase.sm";
+std::string fill_nir = "fill.sm";
+std::string pen_nir = "pen.sm";
+std::string sidebar_nir = "sidebar.sm";
+std::string spray_nir = "spray.sm";
 /*
 #elif __linux__
 
 std::string cursor_plt = getenv("APPDIR"); cursor_plt += "/cursor.plt";
 std::string default_plt = getenv("APPDIR"); default_plt += "/default.plt";
-std::string erase_nir = getenv("APPDIR"); erase_nir += "/erase.nir";
-std::string fill_nir = getenv("APPDIR"); fill_nir += "/fill.nir";
-std::string pen_nir = getenv("APPDIR"); pen_nir += "/pen.nir";
-std::string sidebar_nir = getenv("APPDIR"); sidebar_nir += "/sidebar.nir";
-std::string spray_nir = getenv("APPDIR"); spray_nir += "/spray.nir";
+std::string erase_nir = getenv("APPDIR"); erase_nir += "/erase.sm";
+std::string fill_nir = getenv("APPDIR"); fill_nir += "/fill.sm";
+std::string pen_nir = getenv("APPDIR"); pen_nir += "/pen.sm";
+std::string sidebar_nir = getenv("APPDIR"); sidebar_nir += "/sidebar.sm";
+std::string spray_nir = getenv("APPDIR"); spray_nir += "/spray.sm";
 */
 #endif
 
@@ -192,7 +192,7 @@ std::vector<uint16_t> data;
 	SDL_Texture* paletteTex = SDL_CreateTexture(paletteRenderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, palette.size > 16 ? 16 : palette.size - 1, palette.size > 16 ? 16 : 1);
 	SDL_UpdateTexture(paletteTex, NULL, &palette.color[1], (palette.size - 1) * 2);
 
-	SDL_Texture* pEditTex = ml::CreateSDLTextureFromFiles(paletteRenderer, "pen.nir", "cursor.plt");
+	SDL_Texture* pEditTex = ml::CreateSDLTextureFromFiles(paletteRenderer, "pen.sm", "cursor.plt");
 
 	SDL_Rect pEditRect;
 	pEditRect.x = 240;
@@ -209,20 +209,20 @@ std::vector<uint16_t> data;
 
 	short clickedColor = 1;
 
-	SDL_Surface* eraseSurf = ml::CreateSDLSurfaceFromFiles(renderer, "erase.nir", "cursor.plt");
+	SDL_Surface* eraseSurf = ml::CreateSDLSurfaceFromFiles(renderer, "erase.sm", "cursor.plt");
 	SDL_Cursor* eraseCur = SDL_CreateColorCursor(eraseSurf, 6, 13);
-	SDL_Surface* penSurf = ml::CreateSDLSurfaceFromFiles(renderer, "pen.nir", "cursor.plt");
+	SDL_Surface* penSurf = ml::CreateSDLSurfaceFromFiles(renderer, "pen.sm", "cursor.plt");
 	SDL_Cursor* penCur = SDL_CreateColorCursor(penSurf, 0, 15);
-	SDL_Surface* fillSurf = ml::CreateSDLSurfaceFromFiles(renderer, "fill.nir", "cursor.plt");
+	SDL_Surface* fillSurf = ml::CreateSDLSurfaceFromFiles(renderer, "fill.sm", "cursor.plt");
 	SDL_Cursor* fillCur = SDL_CreateColorCursor(fillSurf, 2, 14);
-	SDL_Surface* spraySurf = ml::CreateSDLSurfaceFromFiles(renderer, "spray.nir", "cursor.plt");
+	SDL_Surface* spraySurf = ml::CreateSDLSurfaceFromFiles(renderer, "spray.sm", "cursor.plt");
 	SDL_Cursor* sprayCur = SDL_CreateColorCursor(spraySurf, 0, 3);
 
 	SDL_Cursor* curCur = penCur;
 
 	bool curIsDefault = 0;
 
-	SDL_Texture* sidebarTex = ml::CreateSDLTextureFromFiles(renderer, "sidebar.nir", "default.plt");
+	SDL_Texture* sidebarTex = ml::CreateSDLTextureFromFiles(renderer, "sidebar.sm", "default.plt");
 
 	uint8_t optionSize = 80;
 
@@ -316,7 +316,7 @@ std::vector<uint16_t> data;
 	bool shift = 0;
 
 	int quit = 0;
-	const char* saveFilterPatterns[1] = { "*.nir" };
+	const char* saveFilterPatterns[1] = { "*.sm" };
 	const char* paletteFilterPatterns[1] = { "*.plt" };
 
 	uint16_t currentWidth = renderLogicalWidth;
