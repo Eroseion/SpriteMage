@@ -9,12 +9,12 @@
 #define RMOD SDLK_RCTRL
 #endif
 
-nl::Palette	EditPalette(nl::Palette palette = nl::Palette());
-nl::Palette RandomPalette(unsigned short size);
-void	SavePalette(nl::Palette palette, const char* filename);
+ml::Palette	EditPalette(ml::Palette palette = ml::Palette());
+ml::Palette RandomPalette(unsigned short size);
+void	SavePalette(ml::Palette palette, const char* filename);
 
-nl::Image	NewImage();
-void	SaveImage(nl::Image image, char* filename);
+ml::Image	NewImage();
+void	SaveImage(ml::Image image, char* filename);
 void	SaveImageToBMP(std::vector<uint16_t> data, uint16_t width, uint16_t height);
 
 std::vector<uint8_t> CompressRLE(std::vector<uint8_t> bytes);
@@ -70,8 +70,8 @@ _start:
 
 srand(time(0));
 
-nl::Palette palette;
-nl::Image image;
+ml::Palette palette;
+ml::Image image;
 std::vector<uint16_t> data;
 
 	if (argv[1] == NULL) {
@@ -84,11 +84,11 @@ std::vector<uint16_t> data;
 			image.bytes.push_back(0);
 		}
 		printf("\nNo palette specified. Using default palette.\n\n");
-		palette = nl::LoadPalette("default.plt");
+		palette = ml::LoadPalette("default.plt");
 		if (palette.size <= 1) { printf("Exiting.\n"); return 0; }
 	}
 	else if (argv[1] != NULL && argv[2] == NULL) {
-		if ((image = nl::LoadImage(argv[1])).w == 0) {
+		if ((image = ml::LoadImage(argv[1])).w == 0) {
 			printf("Using blank 64x64 pixel image.\n");
 			image.w = 8;
 			image.h = 8;
@@ -99,7 +99,7 @@ std::vector<uint16_t> data;
 			}
 		}
 		printf("\nNo palette specified. Using default palette.\n\n");
-		palette = nl::LoadPalette("default.plt");
+		palette = ml::LoadPalette("default.plt");
 		if (palette.size <= 1) { printf("Exiting.\n"); return 0; }
 	}
 	else {
@@ -112,19 +112,19 @@ std::vector<uint16_t> data;
 			}
 		}
 		else if (!strcmp(argv[2], "--hex")) {
-			if(argv[3]) palette = nl::LoadHexPalette(argv[3]);
+			if(argv[3]) palette = ml::LoadHexPalette(argv[3]);
 			else{
 				printf("You must specify the .hex palette file.\n");
 				return 1;
 			}
 		}
-		else if ((palette = nl::LoadPalette(argv[2])).size <= 1) {
+		else if ((palette = ml::LoadPalette(argv[2])).size <= 1) {
 			printf("Creating new palette.\n");
 			palette = EditPalette();
 			if (palette.size <= 1) { printf("Exiting.\n"); return 0; }
 
 		}
-		if ((image = nl::LoadImage(argv[1])).w == 0) {
+		if ((image = ml::LoadImage(argv[1])).w == 0) {
 			printf("Using blank 64x64 pixel image.\n");
 			image.w = 8;
 			image.h = 8;
@@ -138,7 +138,7 @@ std::vector<uint16_t> data;
 	}
 
 	printf("Creating texture vector.\n");
-	data = nl::CreatePixelBuffer(image, palette);
+	data = ml::CreatePixelBuffer(image, palette);
 
 	if (data.size() == 0) {
 		printf("Texture size returned null. Exit.\n");
@@ -192,7 +192,7 @@ std::vector<uint16_t> data;
 	SDL_Texture* paletteTex = SDL_CreateTexture(paletteRenderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, palette.size > 16 ? 16 : palette.size - 1, palette.size > 16 ? 16 : 1);
 	SDL_UpdateTexture(paletteTex, NULL, &palette.color[1], (palette.size - 1) * 2);
 
-	SDL_Texture* pEditTex = nl::CreateSDLTextureFromFiles(paletteRenderer, "pen.nir", "cursor.plt");
+	SDL_Texture* pEditTex = ml::CreateSDLTextureFromFiles(paletteRenderer, "pen.nir", "cursor.plt");
 
 	SDL_Rect pEditRect;
 	pEditRect.x = 240;
@@ -209,20 +209,20 @@ std::vector<uint16_t> data;
 
 	short clickedColor = 1;
 
-	SDL_Surface* eraseSurf = nl::CreateSDLSurfaceFromFiles(renderer, "erase.nir", "cursor.plt");
+	SDL_Surface* eraseSurf = ml::CreateSDLSurfaceFromFiles(renderer, "erase.nir", "cursor.plt");
 	SDL_Cursor* eraseCur = SDL_CreateColorCursor(eraseSurf, 6, 13);
-	SDL_Surface* penSurf = nl::CreateSDLSurfaceFromFiles(renderer, "pen.nir", "cursor.plt");
+	SDL_Surface* penSurf = ml::CreateSDLSurfaceFromFiles(renderer, "pen.nir", "cursor.plt");
 	SDL_Cursor* penCur = SDL_CreateColorCursor(penSurf, 0, 15);
-	SDL_Surface* fillSurf = nl::CreateSDLSurfaceFromFiles(renderer, "fill.nir", "cursor.plt");
+	SDL_Surface* fillSurf = ml::CreateSDLSurfaceFromFiles(renderer, "fill.nir", "cursor.plt");
 	SDL_Cursor* fillCur = SDL_CreateColorCursor(fillSurf, 2, 14);
-	SDL_Surface* spraySurf = nl::CreateSDLSurfaceFromFiles(renderer, "spray.nir", "cursor.plt");
+	SDL_Surface* spraySurf = ml::CreateSDLSurfaceFromFiles(renderer, "spray.nir", "cursor.plt");
 	SDL_Cursor* sprayCur = SDL_CreateColorCursor(spraySurf, 0, 3);
 
 	SDL_Cursor* curCur = penCur;
 
 	bool curIsDefault = 0;
 
-	SDL_Texture* sidebarTex = nl::CreateSDLTextureFromFiles(renderer, "sidebar.nir", "default.plt");
+	SDL_Texture* sidebarTex = ml::CreateSDLTextureFromFiles(renderer, "sidebar.nir", "default.plt");
 
 	uint8_t optionSize = 80;
 
@@ -402,7 +402,7 @@ std::vector<uint16_t> data;
 				break;
 				case SDLK_n:
 					if(ctrl){
-						nl::Image newImg = NewImage();
+						ml::Image newImg = NewImage();
 						if(newImg.h){
 							image = newImg;
 							rect.x = image.widthInPixels/3;
@@ -414,7 +414,7 @@ std::vector<uint16_t> data;
 							currentWidth = renderLogicalWidth;
 							currentHeight = renderLogicalHeight;
 							SDL_RenderSetLogicalSize(renderer, renderLogicalWidth, renderLogicalHeight);
-							data = nl::CreatePixelBuffer(image, palette);
+							data = ml::CreatePixelBuffer(image, palette);
 							SDL_DestroyTexture(texture);
 							texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, image.widthInPixels, image.heightInPixels);
 							SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -450,7 +450,7 @@ std::vector<uint16_t> data;
 				case SDLK_o:
 					if(ctrl){
 						filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "NiraiSprite image files", 0);
-						if(filename) image = nl::LoadImage(filename);
+						if(filename) image = ml::LoadImage(filename);
 						rect.x = image.widthInPixels/3;
 						rect.y = 0;
 						rect.w = image.widthInPixels;
@@ -466,7 +466,7 @@ std::vector<uint16_t> data;
 						SDL_UpdateTexture(paletteTex, NULL, &palette.color[1], (palette.size - 1) * 2);
 						paletteRect.w = palette.size > 16 ? 16 : palette.size - 1;
 						paletteRect.h = palette.size > 16 ? 16 : 1;
-						data = nl::CreatePixelBuffer(image, palette);
+						data = ml::CreatePixelBuffer(image, palette);
 						SDL_DestroyTexture(texture);
 						texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, image.widthInPixels, image.heightInPixels);
 						SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -513,7 +513,7 @@ std::vector<uint16_t> data;
 					}
 					else if(!shift){
 						palette = EditPalette(palette);
-						data = nl::CreatePixelBuffer(image, palette);
+						data = ml::CreatePixelBuffer(image, palette);
 						SDL_UpdateTexture(texture, NULL, &data[0], image.widthInPixels * 2);
 						brush.colorValue = palette.color[brush.color];
 						SDL_UpdateTexture(cursorTex, NULL, &brush.colorValue, 1);
@@ -549,7 +549,7 @@ std::vector<uint16_t> data;
 					if (ctrl && image.actions.size() > 1) {
 						image.actions.pop_back();
 						image.bytes = image.actions.back();
-						data = nl::CreatePixelBuffer(image, palette);
+						data = ml::CreatePixelBuffer(image, palette);
 						SDL_UpdateTexture(texture, NULL, &data[0], image.widthInPixels * 2);
 						if(lastClicks.size() > 1){
 							lastClicks.pop_back();
@@ -728,7 +728,7 @@ std::vector<uint16_t> data;
 							else if(brush.type == 1){
 
 								brush.Fill(image.bytes, brush.cursor.x, brush.cursor.y, rect.x, rect.y, image.widthInPixels, image.heightInPixels, image.bytes[event.button.x - rect.x + ((event.button.y - rect.y) * image.widthInPixels)]);
-								data = nl::CreatePixelBuffer(image, palette);
+								data = ml::CreatePixelBuffer(image, palette);
 								SDL_UpdateTexture(texture, NULL, &data[0], image.widthInPixels * 2);
 							}
 							else if(brush.type == 2){
@@ -803,7 +803,7 @@ std::vector<uint16_t> data;
 									else if(button == &undoButton){
 										image.actions.pop_back();
 										image.bytes = image.actions.back();
-										data = nl::CreatePixelBuffer(image, palette);
+										data = ml::CreatePixelBuffer(image, palette);
 										SDL_UpdateTexture(texture, NULL, &data[0], image.widthInPixels * 2);
 										if(lastClicks.size() > 1){
 											lastClicks.pop_back();
@@ -822,7 +822,7 @@ std::vector<uint16_t> data;
 										SDL_RenderPresent(renderer);
 									}
 									else if(button == &newButton){
-										nl::Image newImg = NewImage();
+										ml::Image newImg = NewImage();
 										if(newImg.h){
 											image = newImg;
 											rect.x = image.widthInPixels/3;
@@ -834,7 +834,7 @@ std::vector<uint16_t> data;
 											currentWidth = renderLogicalWidth;
 											currentHeight = renderLogicalHeight;
 											SDL_RenderSetLogicalSize(renderer, renderLogicalWidth, renderLogicalHeight);
-											data = nl::CreatePixelBuffer(image, palette);
+											data = ml::CreatePixelBuffer(image, palette);
 											SDL_DestroyTexture(texture);
 											texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, image.widthInPixels, image.heightInPixels);
 											SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -871,7 +871,7 @@ std::vector<uint16_t> data;
 									}
 									else if(button == &openButton){
 										filename = tinyfd_openFileDialog("Open Image File", "", 1, saveFilterPatterns, "NiraiSprite image files", 0);
-										if(filename) image = nl::LoadImage(filename);
+										if(filename) image = ml::LoadImage(filename);
 										rect.x = image.widthInPixels/3;
 										rect.y = 0;
 										rect.w = image.widthInPixels;
@@ -887,7 +887,7 @@ std::vector<uint16_t> data;
 										SDL_UpdateTexture(paletteTex, NULL, &palette.color[1], (palette.size - 1) * 2);
 										paletteRect.w = palette.size > 16 ? 16 : palette.size - 1;
 										paletteRect.h = palette.size > 16 ? 16 : 1;
-										data = nl::CreatePixelBuffer(image, palette);
+										data = ml::CreatePixelBuffer(image, palette);
 										SDL_DestroyTexture(texture);
 										texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB1555, SDL_TEXTUREACCESS_STATIC, image.widthInPixels, image.heightInPixels);
 										SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -944,7 +944,7 @@ std::vector<uint16_t> data;
 						}
 						else if(clickedColor == 256){
 							palette = EditPalette(palette);
-							data = nl::CreatePixelBuffer(image, palette);
+							data = ml::CreatePixelBuffer(image, palette);
 							SDL_UpdateTexture(texture, NULL, &data[0], image.widthInPixels * 2);
 							brush.colorValue = palette.color[brush.color];
 							SDL_UpdateTexture(cursorTex, NULL, &brush.colorValue, 1);
@@ -1185,11 +1185,11 @@ std::vector<uint16_t> data;
 	return 0;
 }
 
-nl::Palette	EditPalette(nl::Palette palette) {
+ml::Palette	EditPalette(ml::Palette palette) {
 
 	bool isNew = (palette.size == 0);
 
-	nl::Palette tmpPlt;
+	ml::Palette tmpPlt;
 
 	if( ! palette.size ){
 		palette.color.reserve(16);
@@ -1198,7 +1198,7 @@ nl::Palette	EditPalette(nl::Palette palette) {
 		palette.size = 1;
 	}
 
-	nl::Palette nullplt;
+	ml::Palette nullplt;
 
 	uint16_t color = 0;
 
@@ -1370,7 +1370,7 @@ nl::Palette	EditPalette(nl::Palette palette) {
 						else if(ctrl && shift){
 							filename = tinyfd_openFileDialog("Open Hex Palette File", "", 1, hexFilterPatterns, ".hex palette files", 0);
 							if(filename){
-								palette = nl::LoadHexPalette(filename);
+								palette = ml::LoadHexPalette(filename);
 								if(palette.size){
 									for(short i = 0; i < 16; ++i)
 										SDL_UpdateTexture(colors[i], NULL, &palette.color[i], 2);
@@ -1595,7 +1595,7 @@ nl::Palette	EditPalette(nl::Palette palette) {
 					if(ctrl){
 						filename = tinyfd_openFileDialog("Open Palette File", "", 1, paletteFilterPatterns, "NiraiSprite palette files", 0);
 						if(filename){
-							palette = nl::LoadPalette(filename);
+							palette = ml::LoadPalette(filename);
 							if(palette.size){
 								for(short i = 0; i < 16; ++i)
 									SDL_UpdateTexture(colors[i], NULL, &palette.color[i], 2);
@@ -1657,7 +1657,7 @@ nl::Palette	EditPalette(nl::Palette palette) {
 	if(!isNew)
 		SavePalette(palette, tinyfd_saveFileDialog("Save Palette", NULL, 1, paletteFilterPatterns, "NiraiSprite Palette Files"));
 
-	nl::Palette foo;
+	ml::Palette foo;
 
 	foo.color.push_back(0);
 	foo.color.push_back(0b1111111111111111);
@@ -1667,9 +1667,9 @@ nl::Palette	EditPalette(nl::Palette palette) {
 	else return palette;
 }
 
-nl::Palette RandomPalette(unsigned short size)
+ml::Palette RandomPalette(unsigned short size)
 {
-	nl::Palette palette;
+	ml::Palette palette;
 	palette.size = size;
 
 	printf("Creating random palette.\n");
@@ -1711,7 +1711,7 @@ _getsize:
 	return palette;
 }
 
-void	SavePalette(nl::Palette palette, const char* filename) {
+void	SavePalette(ml::Palette palette, const char* filename) {
 
 	std::ofstream file;
 
@@ -1734,10 +1734,10 @@ void	SavePalette(nl::Palette palette, const char* filename) {
 
 }
 
-nl::Image	NewImage() {
+ml::Image	NewImage() {
 
 	printf("creating image structure\n");
-	nl::Image image;
+	ml::Image image;
 
 	printf("creating width and height variables\n");
 
@@ -1790,7 +1790,7 @@ _geth:
 	return image;
 }
 
-void	SaveImage(nl::Image image, char* filename) {
+void	SaveImage(ml::Image image, char* filename) {
 
 	std::ofstream file;
 
