@@ -50,7 +50,7 @@ This is a platform-agnostic way to prepare the SpriteMage directory so you can b
   
 Clone and cd into the directory, and initialize submodules
 ```bash
-git clone https://github.com/Niratomica/SpriteMage.git --recurse-submodules
+git clone https://github.com/RoseRiver-Code/SpriteMage.git --recurse-submodules
 cd SpriteMage
 ```
 Now you can proceed to building!
