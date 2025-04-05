@@ -1,4 +1,4 @@
-# include "NiraiLoader.h"
+# include "MageLoader.h"
 
 struct Brush {
 
