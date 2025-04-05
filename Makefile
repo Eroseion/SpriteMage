@@ -1,4 +1,4 @@
-NAME = NiraiSprite
+NAME = SpriteMage
 SRCS = tinyfiledialogs.c main.cc
 LINKING = -lSDL2main -lSDL2
 LIBDIR = lib
@@ -6,7 +6,7 @@ INCLUDEDIR = include
 CXX = g++
 BITS = 64
 
-NiraiSprite: main.cc NiraiLoader.h Makefile
+SpriteMage: main.cc MageLoader.h Makefile
 	cp depends/tinyfd/tinyfiledialogs* .
 	${CXX} -x c++ -c ${SRCS} -I${INCLUDEDIR} -m${BITS} -no-pie -Os
 	${CXX} *.o -L${LIBDIR} -static-libgcc -static-libstdc++ -Wl,-Bdynamic ${LINKING} -o ${NAME}
@@ -14,10 +14,10 @@ NiraiSprite: main.cc NiraiLoader.h Makefile
 #appimage:
 #	mkdir -p app
 #	cp icon app/icon.png
-#	linuxdeploy --appdir=app -d NiraiSprite.desktop -i icon -e NiraiSprite --output appimage
+#	linuxdeploy --appdir=app -d SpriteMage.desktop -i icon -e SpriteMage --output appimage
 #
-#	rm NiraiSprite
-#	mv NiraiSprite-*.AppImage NiraiSprite
+#	rm SpriteMage
+#	mv SpriteMage-*.AppImage SpriteMage
 
 clean:
 	rm -rf ${NAME} *.o
