@@ -1,3 +1,4 @@
+### Notice: SpriteMage is soon to be reworked using the [FLTK](https://www.fltk.org/) library.
 # What is SpriteMage?
 
 SpriteMage is a program to draw sprites for retro-style games.  
